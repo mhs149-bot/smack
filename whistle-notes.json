@@ -1,0 +1,191 @@
+{
+  "source": "creator whistle.wav (~12.3s, 44100 Hz mono)",
+  "method": "autocorr+FFT fusion pitch track; quantized to 140 BPM; rendered 1 octave down",
+  "bpm": 140,
+  "beat_sec": 0.42857142857142855,
+  "duration_sec": 8.707,
+  "chiptune_octave": "E5\u2013Bb5 (tracked whistle was E6\u2013A#6)",
+  "tracked_absolute": [
+    {
+      "midi": 88,
+      "start": 1.714,
+      "end": 2.473,
+      "name": "E6"
+    },
+    {
+      "midi": 90,
+      "start": 2.478,
+      "end": 2.802,
+      "name": "F#6"
+    },
+    {
+      "midi": 93,
+      "start": 2.912,
+      "end": 3.5,
+      "name": "A6"
+    },
+    {
+      "midi": 90,
+      "start": 3.62,
+      "end": 3.835,
+      "name": "F#6"
+    },
+    {
+      "midi": 94,
+      "start": 3.924,
+      "end": 4.333,
+      "name": "A#6"
+    },
+    {
+      "midi": 93,
+      "start": 4.618,
+      "end": 6.997,
+      "name": "A6"
+    },
+    {
+      "midi": 88,
+      "start": 7.97,
+      "end": 8.055,
+      "name": "E6"
+    },
+    {
+      "midi": 90,
+      "start": 8.06,
+      "end": 8.294,
+      "name": "F#6"
+    },
+    {
+      "midi": 93,
+      "start": 8.404,
+      "end": 8.958,
+      "name": "A6"
+    },
+    {
+      "midi": 90,
+      "start": 9.113,
+      "end": 9.242,
+      "name": "F#6"
+    },
+    {
+      "midi": 88,
+      "start": 9.392,
+      "end": 9.542,
+      "name": "E6"
+    },
+    {
+      "midi": 90,
+      "start": 9.547,
+      "end": 10.065,
+      "name": "F#6"
+    },
+    {
+      "midi": 88,
+      "start": 10.07,
+      "end": 11.926,
+      "name": "E6"
+    }
+  ],
+  "melody": [
+    {
+      "n": 76,
+      "beats": 2.0,
+      "name": "E5"
+    },
+    {
+      "n": 78,
+      "beats": 0.75,
+      "name": "F#5"
+    },
+    {
+      "n": 81,
+      "beats": 1.5,
+      "name": "A5"
+    },
+    {
+      "n": 78,
+      "beats": 0.5,
+      "name": "F#5"
+    },
+    {
+      "n": 82,
+      "beats": 1.0,
+      "name": "Bb5"
+    },
+    {
+      "rest": 0.5
+    },
+    {
+      "n": 81,
+      "beats": 4.0,
+      "name": "A5"
+    },
+    {
+      "rest": 1.5
+    },
+    {
+      "n": 76,
+      "beats": 0.25,
+      "name": "E5"
+    },
+    {
+      "n": 78,
+      "beats": 0.5,
+      "name": "F#5"
+    },
+    {
+      "n": 81,
+      "beats": 1.25,
+      "name": "A5"
+    },
+    {
+      "n": 78,
+      "beats": 0.5,
+      "name": "F#5"
+    },
+    {
+      "n": 76,
+      "beats": 0.5,
+      "name": "E5"
+    },
+    {
+      "n": 78,
+      "beats": 1.25,
+      "name": "F#5"
+    },
+    {
+      "n": 76,
+      "beats": 3.5,
+      "name": "E5"
+    }
+  ],
+  "sequence_midi": [
+    76,
+    78,
+    81,
+    78,
+    82,
+    81,
+    76,
+    78,
+    81,
+    78,
+    76,
+    78,
+    76
+  ],
+  "sequence_names": [
+    "E5",
+    "F#5",
+    "A5",
+    "F#5",
+    "Bb5",
+    "A5",
+    "E5",
+    "F#5",
+    "A5",
+    "F#5",
+    "E5",
+    "F#5",
+    "E5"
+  ]
+}

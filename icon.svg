@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16062e"/>
+      <stop offset="100%" stop-color="#0a0118"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5d4"/>
+      <stop offset="50%" stop-color="#f15bb5"/>
+      <stop offset="100%" stop-color="#fee440"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <circle cx="256" cy="248" r="150" fill="#9b5de5" opacity="0.35"/>
+  <!-- bird body -->
+  <ellipse cx="250" cy="270" rx="110" ry="95" fill="#00f5d4"/>
+  <!-- wing -->
+  <ellipse cx="200" cy="280" rx="55" ry="70" fill="#00c2a8" transform="rotate(-20 200 280)"/>
+  <!-- head -->
+  <circle cx="300" cy="190" r="72" fill="#00f5d4"/>
+  <!-- eye white -->
+  <circle cx="320" cy="175" r="22" fill="#f4f0ff"/>
+  <!-- pupil -->
+  <circle cx="328" cy="175" r="11" fill="#0a0118"/>
+  <!-- beak -->
+  <path d="M360 195 L430 210 L360 230 Z" fill="#fee440"/>
+  <!-- crest -->
+  <path d="M270 130 Q290 70 320 120 Q300 100 280 125 Z" fill="#f15bb5"/>
+  <path d="M295 125 Q320 55 350 115 Q330 95 310 120 Z" fill="#9b5de5"/>
+  <!-- speech lines -->
+  <path d="M390 140 Q430 120 450 150" stroke="url(#neon)" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M400 170 Q445 160 460 190" stroke="url(#neon)" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.7"/>
+</svg>
