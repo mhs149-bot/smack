@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Whistle 8-bit · break-100 prize</title>
+  <style>
+    body { margin:0; min-height:100dvh; display:grid; place-items:center;
+      background:#05010f; color:#efe6ff; font-family:system-ui,sans-serif; }
+    button { font-size:1.2rem; padding:1rem 1.5rem; border-radius:999px;
+      border:1px solid #00f5d4; background:#12082a; color:#00f5d4;
+      box-shadow:0 0 24px rgba(0,245,212,.25); cursor:pointer; margin:.35rem; }
+    p { color:#a89bc0; max-width:28rem; text-align:center; line-height:1.45; }
+    .ver { display:inline-block; margin-top:.75rem; padding:.2rem .65rem;
+      border-radius:999px; border:1px solid #6c5ce7; color:#c4b5fd;
+      font-size:.8rem; letter-spacing:.04em; }
+    audio { margin-top:1rem; width:min(22rem,90vw); }
+  </style>
+</head>
+<body>
+  <div style="text-align:center">
+    <button type="button" id="play">Play whistle chiptune (Web Audio)</button>
+    <button type="button" id="wav">Play WAV</button>
+    <div class="ver">break-100 prize · v5 · 8-bit + two 32-bit holds · 140 BPM</div>
+    <p>House whistle melody → square/triangle 8-bit 8-bit chip; 32-bit only on hold-after-high and final note. Wired as the signature SFX when you break 100 on the beer slide.</p>
+    <audio id="a" controls src="/whistle-8bit.wav"></audio>
+  </div>
+  <script type="module">
+    const BPM = 140;
+    const MELODY = [{"n": 76, "beats": 2.0, "name": "E5"}, {"n": 78, "beats": 0.75, "name": "F#5"}, {"n": 81, "beats": 1.5, "name": "A5"}, {"n": 78, "beats": 0.5, "name": "F#5"}, {"n": 83, "beats": 1.0, "name": "B5"}, {"rest": 0.5}, {"n": 81, "beats": 4.0, "name": "A5"}, {"rest": 1.5}, {"n": 76, "beats": 0.25, "name": "E5"}, {"n": 78, "beats": 0.5, "name": "F#5"}, {"n": 81, "beats": 1.25, "name": "A5"}, {"n": 78, "beats": 0.5, "name": "F#5"}, {"n": 76, "beats": 0.5, "name": "E5"}, {"n": 78, "beats": 1.25, "name": "F#5"}, {"n": 76, "beats": 3.5, "name": "E5"}];
+    let ctx;
+    function getCtx() {
+      if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    }
+    function midi(n) { return 440 * Math.pow(2, (n - 69) / 12); }
+    function playVoice(notes, bpm, type, gain, opts = {}) {
+      const c = getCtx();
+      const beat = 60 / bpm;
+      const attack = opts.attack ?? 0.012;
+      let t = (opts.startAt ?? c.currentTime) + 0.02;
+      for (const step of notes) {
+        if (step.rest != null) { t += step.rest * beat; continue; }
+        const stepDur = step.beats * beat;
+        const dur = Math.max(0.05, stepDur * 0.88);
+        const osc = c.createOscillator();
+        const g = c.createGain();
+        osc.type = type;
+        const freq = midi(step.n + (opts.transpose || 0));
+        osc.frequency.setValueAtTime(freq, t);
+        if (opts.vib && dur > 0.22) {
+          osc.frequency.setValueAtTime(freq, t + 0.08);
+          osc.frequency.linearRampToValueAtTime(freq * 1.006, t + 0.08 + 0.09);
+          osc.frequency.linearRampToValueAtTime(freq * 0.994, t + 0.08 + 0.18);
+          osc.frequency.linearRampToValueAtTime(freq, t + 0.08 + 0.27);
+        }
+        osc.connect(g); g.connect(c.destination);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(gain, t + attack);
+        g.gain.setValueAtTime(gain, t + Math.max(attack, dur * 0.55));
+        g.gain.linearRampToValueAtTime(0.0001, t + dur);
+        osc.start(t); osc.stop(t + dur + 0.03);
+        t += stepDur;
+      }
+    }
+    function whistleJingle() {
+      const c = getCtx();
+      const t0 = c.currentTime;
+      const PAD32 = new Set([6, 14]);
+      const chipOnly = MELODY.map((s, i) => s.n != null && !PAD32.has(i) ? { n: s.n, beats: s.beats } : { rest: s.rest != null ? s.rest : s.beats });
+      const padOnly = MELODY.map((s, i) => s.n != null && PAD32.has(i) ? { n: s.n, beats: s.beats } : { rest: s.rest != null ? s.rest : s.beats });
+      playVoice(chipOnly, BPM, 'square', 0.058, { attack: 0.008, startAt: t0 });
+      playVoice(chipOnly.map((s) => s.n != null ? { n: s.n - 12, beats: s.beats } : s), BPM, 'triangle', 0.022, { attack: 0.012, startAt: t0 });
+      playVoice(padOnly, BPM, 'sine', 0.05, { attack: 0.04, vib: true, startAt: t0 });
+      playVoice(padOnly.map((s) => s.n != null ? { n: s.n - 12, beats: s.beats } : s), BPM, 'triangle', 0.028, { attack: 0.05, startAt: t0 });
+      playVoice(padOnly.map((s) => s.n != null ? { n: s.n + 12, beats: s.beats } : s), BPM, 'sine', 0.016, { attack: 0.06, vib: true, startAt: t0 });
+    }
+    document.getElementById('play').onclick = () => whistleJingle();
+    document.getElementById('wav').onclick = () => {
+      const a = document.getElementById('a');
+      a.currentTime = 0; a.play();
+    };
+  </script>
+</body>
+</html>
